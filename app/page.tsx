@@ -2,10 +2,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 
-// High-Performance Counter Component
-const StatCounter = ({ end, duration = 2000, suffix = "" }) => {
+// 1. DEFINE THE STAT COUNTER BLUEPRINT
+interface StatCounterProps {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}
+
+const StatCounter = ({ end, duration = 2000, suffix = "" }: StatCounterProps) => {
   const [count, setCount] = useState(0);
-  const countRef = useRef(null);
+  const countRef = useRef<HTMLSpanElement>(null);
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
