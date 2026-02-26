@@ -20,19 +20,19 @@ export async function submitInquiry(formData: FormData) {
   }
 
   try {
-    // Aggressive cleaning to handle Turbopack/Next.js 16 string parsing
+    // Convert literal \n to actual newlines and clean quotes
     const privateKey = envKey
-      .replace(/\\n/g, '\n')     // Convert literal \n to actual newlines
-      .replace(/"/g, '')         // Remove any double quotes
-      .replace(/'/g, '')         // Remove any single quotes
+      .replace(/\\n/g, '\n')
+      .replace(/"/g, '')
+      .replace(/'/g, '')
       .trim();
 
-    const auth = new google.auth.JWT(
-      envEmail.trim(),
-      null,
-      privateKey,
-      ['https://www.googleapis.com/auth/spreadsheets']
-    );
+    // THE FIX: Using the modern Options Object constructor
+    const auth = new google.auth.JWT({
+      email: envEmail.trim(),
+      key: privateKey,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
 
     const sheets = google.sheets({ version: 'v4', auth });
 
