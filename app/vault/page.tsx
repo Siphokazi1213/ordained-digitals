@@ -2,12 +2,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-export default function DigitalVault() {
-  const [selectedAsset, setSelectedAsset] = useState(null);
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [email, setEmail] = useState("");
+// THE ASSET BLUEPRINT: Defining the structure of your logic products
+interface Asset {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  price: string;
+  image: string;
+}
 
-  const assets = [
+export default function DigitalVault() {
+  // THE FIX: Explicitly typing the state hooks
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+
+  const assets: Asset[] = [
     {
       id: "V-01",
       name: "Stokvel Neural Tracker",
@@ -34,11 +45,13 @@ export default function DigitalVault() {
     }
   ];
 
-  const handleTransaction = async (e) => {
+  // THE FIX: Defining the Form Event type
+  const handleTransaction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!selectedAsset) return;
+    
     setIsSyncing(true);
 
-    // LOGIC SYNC: Sending the purchase intent to your Google Sheet
     try {
       await fetch("https://script.google.com/macros/s/AKfycbxNCBdzD5to0ABZFMVc-3gt398Gs2V6nh69r2uPrFGeWVGs-IzayeEl9COiPiSZongC/exec", {
         method: "POST",
@@ -50,7 +63,6 @@ export default function DigitalVault() {
         }),
       });
 
-      // Redirect to a placeholder payment link (Paystack/PayPal)
       window.location.href = "https://checkout.paystack.com/your-link-here";
       
     } catch (err) {
@@ -125,7 +137,7 @@ export default function DigitalVault() {
                     required 
                     placeholder="email@protocol.com"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     className="w-full bg-transparent border-none outline-none text-xl font-light text-white" 
                   />
                 </div>
@@ -138,7 +150,7 @@ export default function DigitalVault() {
                   >
                     {isSyncing ? "SYNCING..." : `Authorize ${selectedAsset.price} Transaction`}
                   </button>
-                  <button onClick={() => setSelectedAsset(null)} className="text-[10px] font-mono text-gray-600 uppercase tracking-widest hover:text-white transition-colors">
+                  <button type="button" onClick={() => setSelectedAsset(null)} className="text-[10px] font-mono text-gray-600 uppercase tracking-widest hover:text-white transition-colors">
                     Cancel_Operation
                   </button>
                 </div>
@@ -148,7 +160,6 @@ export default function DigitalVault() {
         )}
 
         <footer className="mt-40 pt-20 border-t border-white/5 opacity-80 text-left">
-           {/* (Preserve your existing footer code here) */}
            <p className="text-gray-600 font-mono text-[9px] uppercase tracking-[0.4em]">Ready for Digital Sovereignty?</p>
            <Link href="/" className="text-white hover:text-[#ff5c00] font-bold uppercase text-[10px] tracking-[0.3em] transition-colors">
              Return to Vision Center ↗

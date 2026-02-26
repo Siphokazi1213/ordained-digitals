@@ -2,12 +2,19 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
+// THE FIX: Defining the shape of your form data
+interface InquiryData {
+  name: string;
+  email: string;
+  tier: string;
+  message: string;
+}
+
 export default function InquiryOnboarding() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState(""); 
 
-  // Form State
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<InquiryData>({
     name: "",
     email: "",
     tier: "Essential Identity",
@@ -16,22 +23,21 @@ export default function InquiryOnboarding() {
 
   const nextStep = () => setStep((s) => s + 1);
 
-  // THE LOGIC SYNC: Sending data to your Google Sheet
-  const handleSubmit = async (e) => {
+  // THE FIX: Adding React.FormEvent type to the handler
+  const handleSubmit = async (e: React.FormEvent) => {
     if (e) e.preventDefault();
     setStatus("SYNCING...");
 
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbxNCBdzD5to0ABZFMVc-3gt398Gs2V6nh69r2uPrFGeWVGs-IzayeEl9COiPiSZongC/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbxNCBdzD5to0ABZFMVc-3gt398Gs2V6nh69r2uPrFGeWVGs-IzayeEl9COiPiSZongC/exec", {
         method: "POST",
-        mode: "no-cors", // Required for Google Apps Script redirects
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      // With no-cors, we can't read the response body, so we assume success if no error is thrown
       setStatus("SUCCESS");
       setStep(3); 
     } catch (error) {
@@ -39,6 +45,8 @@ export default function InquiryOnboarding() {
       setStatus("RETRY_REQUIRED");
     }
   };
+
+  const tiers = ['Essential Identity', 'Digital Sovereign', 'Neural Enterprise'];
 
   return (
     <main className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e1] font-sans overflow-x-hidden">
@@ -70,7 +78,7 @@ export default function InquiryOnboarding() {
         {step === 1 && (
           <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
             <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.6em] mb-6">Step_01</p>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-12">Identify <br /> Your Vision.</h2>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-12 text-left">Identify <br /> Your Vision.</h2>
             <div className="space-y-12 text-left">
               <div className="group border-b border-white/10 focus-within:border-[#ff5c00] transition-colors pb-4">
                 <label className="block text-[9px] font-mono uppercase text-gray-500 mb-2">Legal_Name</label>
@@ -104,18 +112,16 @@ export default function InquiryOnboarding() {
         {step === 2 && (
           <section className="animate-in fade-in slide-in-from-right-4 duration-700">
             <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.6em] mb-6">Step_02</p>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-12">Select <br /> Tier.</h2>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-12 text-left">Select <br /> Tier.</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-              {['Essential Identity', 'Digital Sovereign', 'Neural Enterprise'].map((tier) => (
+              {tiers.map((t) => (
                 <button 
-                  key={tier}
-                  onClick={() => {
-                    setFormData({...formData, tier: tier});
-                  }}
-                  className={`p-8 border rounded-3xl text-left transition-all group ${formData.tier === tier ? 'border-[#ff5c00] bg-[#ff5c00]/5' : 'border-white/10 hover:border-[#ff5c00]/50'}`}
+                  key={t}
+                  onClick={() => setFormData({...formData, tier: t})}
+                  className={`p-8 border rounded-3xl text-left transition-all group ${formData.tier === t ? 'border-[#ff5c00] bg-[#ff5c00]/5' : 'border-white/10 hover:border-[#ff5c00]/50'}`}
                 >
                   <span className="block text-[9px] font-mono text-gray-500 mb-4 uppercase">Option</span>
-                  <span className="text-xl font-bold text-white group-hover:text-[#ff5c00] transition-colors">{tier}</span>
+                  <span className="text-xl font-bold text-white group-hover:text-[#ff5c00] transition-colors">{t}</span>
                 </button>
               ))}
             </div>
