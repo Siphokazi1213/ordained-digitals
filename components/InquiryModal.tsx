@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useForm, ValidationError } from '@formspree/react';
+import { useState, useEffect, useTransition } from "react";
+import { submitInquiry } from "../app/actions";
 
 export default function InquiryModal() {
   const [isOpen, setIsOpen] = useState(false);
-  // Using your verified Formspree ID
-  const [state, handleSubmit] = useForm("xreayrov"); 
+  const [isPending, startTransition] = useTransition();
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
@@ -13,98 +13,123 @@ export default function InquiryModal() {
     return () => window.removeEventListener("open-inquiry", handleOpen);
   }, []);
 
+  async function handleSubmit(formData: FormData) {
+    startTransition(async () => {
+      try {
+        const result = await submitInquiry(formData);
+        if (result.success) {
+          setStatus("success");
+          // Hold the success state for a moment for the "Aesthetic" effect
+          setTimeout(() => {
+            setIsOpen(false);
+            setStatus("idle");
+          }, 2500);
+        } else {
+          setStatus("error");
+        }
+      } catch (e) {
+        setStatus("error");
+      }
+    });
+  }
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center px-6">
-      {/* 1. ATMOSPHERIC BACKDROP */}
+      {/* 1. NEURAL BLUR OVERLAY */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-2xl animate-in fade-in duration-500" 
-        onClick={() => !state.submitting && setIsOpen(false)}
+        className="absolute inset-0 bg-black/80 backdrop-blur-xl animate-in fade-in duration-500" 
+        onClick={() => !isPending && setIsOpen(false)}
       />
       
-      {/* 2. THE ARCHITECTURAL MODAL */}
-      <div className="relative z-10 w-full max-w-2xl bg-[#0d0d0d] border border-white/10 rounded-[2.5rem] p-12 shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
+      {/* 2. THE GLASS COMMAND CENTER */}
+      <div className="relative z-10 w-full max-w-2xl bg-[#121212] border border-white/10 p-10 md:p-14 rounded-[3rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-500">
         
-        {/* Aesthetic Detail: Orange Corner Light */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#ff5c00]/10 blur-[80px] rounded-full" />
-
+        {/* CLOSE PROTOCOL */}
         <button 
           onClick={() => setIsOpen(false)}
-          className="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors text-sm font-mono"
+          disabled={isPending}
+          className="absolute top-8 right-10 text-gray-500 hover:text-[#ff5c00] transition-all disabled:opacity-0"
         >
-          CLOSE_X
+          <span className="text-xs font-mono tracking-widest">CLOSE_X</span>
         </button>
 
-        <header className="mb-12">
+        {/* HEADER LOGIC */}
+        <div className="mb-12">
           <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">
-            {state.succeeded ? "Establishment_Confirmed" : "Inquiry_Protocol"}
+            {status === "success" ? "✓ Sync_Established" : "Step_00_Inquiry"}
           </p>
-          <h2 className="text-4xl font-bold tracking-tighter text-white leading-tight">
-            {state.succeeded ? "Sync Established." : "Start the Dialogue."}
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white uppercase leading-none">
+            {status === "success" ? "Transmission <br/> Received." : "Project <br/> Handshake."}
           </h2>
-        </header>
+        </div>
 
-        {state.succeeded ? (
-          <div className="py-12 text-left animate-in fade-in slide-in-from-bottom-4">
-            <p className="text-gray-400 text-lg leading-relaxed mb-8">
-              Your vision has been successfully injected into our ecosystem. We will reach out to architect your legacy within 24 hours.
+        {status === "success" ? (
+          <div className="py-12 text-left animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <p className="text-gray-400 text-lg font-light leading-relaxed italic">
+              "Your objectives have been securely injected into the Gauteng Node. An architect will analyze your coordinates and reach out within 24 operational hours."
             </p>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="text-[#ff5c00] hover:underline font-mono text-[10px] uppercase tracking-widest"
-            >
-              Terminate Session
-            </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <label htmlFor="name" className="text-[9px] font-mono text-gray-500 uppercase tracking-[0.3em]">Identity_Name</label>
+          <form action={handleSubmit} className="space-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="group space-y-3 border-b border-white/10 focus-within:border-[#ff5c00] transition-colors pb-2">
+                <label className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Name and Surname</label>
                 <input 
-                  id="name"
-                  name="name"
                   required
+                  name="name"
                   type="text" 
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#ff5c00] transition-all placeholder:text-gray-700" 
-                  placeholder="e.g. Alexander Stone" 
+                  className="w-full bg-transparent border-none outline-none text-white text-xl font-light placeholder:text-white/5 uppercase" 
+                  placeholder="IDENTIFY NAME" 
                 />
               </div>
-              <div className="space-y-3">
-                <label htmlFor="email" className="text-[9px] font-mono text-gray-500 uppercase tracking-[0.3em]">Access_Email</label>
+              <div className="group space-y-3 border-b border-white/10 focus-within:border-[#ff5c00] transition-colors pb-2">
+                <label className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Email-Adress</label>
                 <input 
-                  id="email"
-                  name="email"
                   required
+                  name="email"
                   type="email" 
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#ff5c00] transition-all placeholder:text-gray-700" 
-                  placeholder="name@studio.com" 
+                  className="w-full bg-transparent border-none outline-none text-white text-xl font-light placeholder:text-white/5 uppercase" 
+                  placeholder="EMAIL_ADDR" 
                 />
-                <ValidationError prefix="Email" field="email" errors={state.errors} className="text-[#ff5c00] text-[10px] mt-1 font-mono uppercase" />
               </div>
             </div>
             
-            <div className="space-y-3">
-              <label htmlFor="goals" className="text-[9px] font-mono text-gray-500 uppercase tracking-[0.3em]">Project_Architect_Brief</label>
+            <div className="group space-y-3 border-b border-white/10 focus-within:border-[#ff5c00] transition-colors pb-2">
+              <label className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Project_Vision / Goals</label>
               <textarea 
-                id="goals"
-                name="goals"
                 required
-                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#ff5c00] transition-all h-32 resize-none placeholder:text-gray-700" 
-                placeholder="Describe the future you want to build..." 
+                name="goals"
+                className="w-full bg-transparent border-none outline-none text-white text-xl font-light placeholder:text-white/5 h-24 resize-none uppercase" 
+                placeholder="DESCRIBE THE MISSION..." 
               />
             </div>
 
-            <button 
-              type="submit"
-              disabled={state.submitting}
-              className={`w-full py-5 rounded-2xl font-bold uppercase text-[11px] tracking-[0.3em] transition-all active:scale-[0.98]
-                ${state.submitting ? 'bg-gray-800 text-gray-500 cursor-not-allowed' : 'bg-[#ff5c00] text-black hover:bg-white'}
-              `}
-            >
-              {state.submitting ? "Establishing Sync..." : "Initialize Design Phase"}
-            </button>
+            <div className="pt-6">
+              <button 
+                disabled={isPending}
+                className={`group w-full font-bold py-6 rounded-2xl transition-all active:scale-95 flex items-center justify-center gap-4 uppercase tracking-[0.3em] text-[11px]
+                  ${isPending ? 'bg-white/5 text-gray-500 cursor-not-allowed' : 'bg-white text-black hover:bg-[#ff5c00] hover:text-white shadow-xl'}
+                `}
+              >
+                {isPending ? (
+                  <>
+                    <span className="w-3 h-3 border-2 border-gray-500 border-t-white rounded-full animate-spin" />
+                    Syncing_Data...
+                  </>
+                ) : (
+                  <>
+                    Initialize Sync
+                    <div className="w-2 h-2 rounded-full bg-[#ff5c00] group-hover:bg-white animate-pulse" />
+                  </>
+                )}
+              </button>
+            </div>
+            
+            {status === "error" && (
+              <p className="text-red-500 text-[10px] font-mono text-center uppercase tracking-widest">Transmission_Error: Verify Connection.</p>
+            )}
           </form>
         )}
       </div>
