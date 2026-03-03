@@ -7,18 +7,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  // Hide on specific work pages if needed
+  // Protocol: Hide on high-focus work pages
   if (pathname === '/work/aura-wellness') return null;
 
-  const handleInquiryClick = () => {
-    setIsMobileOpen(false);
-    window.dispatchEvent(new Event('open-inquiry'));
-  };
-
+  // UPDATED NODES: Swapped FAQ for Solutions and About Us for Architecture
   const navLinks = [
+    { name: 'Solutions', href: '/intelligence' },
     { name: 'Resources', href: '/vault' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'About Us', href: '/about' },
+    { name: 'Architecture', href: '/#architecture' },
     { name: 'Index', href: '/work' },
   ];
 
@@ -35,19 +31,13 @@ export default function Navbar() {
             <span className="font-bold tracking-[0.2em] text-sm hidden sm:block text-white uppercase">Ordained</span>
           </Link>
 
-          {/* DESKTOP LINKS */}
+          {/* DESKTOP LINKS - Wording Updated */}
           <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link key={link.name} href={link.href} className="text-white/50 hover:text-[#ff5c00] px-4 py-2 text-[10px] font-mono uppercase tracking-widest transition-all">
                 {link.name}
               </Link>
             ))}
-            <button 
-              onClick={handleInquiryClick}
-              className="ml-4 px-6 py-2.5 bg-white text-black text-[10px] font-bold rounded-xl hover:bg-[#ff5c00] hover:text-white transition-all uppercase tracking-widest active:scale-95 shadow-lg"
-            >
-              Start Project
-            </button>
           </div>
 
           {/* MOBILE HAMBURGER BUTTON */}
@@ -69,9 +59,6 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <button onClick={handleInquiryClick} className="mt-8 px-12 py-5 bg-[#ff5c00] text-black text-sm font-bold uppercase tracking-widest rounded-2xl shadow-[0_0_40px_rgba(255,92,0,0.2)]">
-            Start Project
-          </button>
         </div>
       </div>
     </>
