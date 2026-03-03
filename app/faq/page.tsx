@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-// Defining the Shape of the Data (The Fix)
+// 1. FAQ ITEM COMPONENT (Functionality Preserved)
 interface FAQItemProps {
   question: string;
   answer: string;
@@ -40,8 +40,8 @@ export default function FAQMatrix() {
   const faqs = [
     {
       id: "01",
-      question: "Why the $25k+ investment floor?",
-      answer: "We don't build websites; we engineer digital sovereignty. This includes custom Python-based logic, high-performance hosting on Google Cloud, and a bespoke UI designed for sub-300ms interaction."
+      question: "Why the R10k+ investment floor?",
+      answer: "We don't build simple websites; we engineer digital sovereignty. This includes custom Python-based logic, high-performance hosting on Google Cloud, and a bespoke UI designed for sub-300ms interaction."
     },
     {
       id: "02",
@@ -55,32 +55,59 @@ export default function FAQMatrix() {
 
   return (
     <main className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e1] font-sans overflow-x-hidden">
+      
+      {/* BACKGROUND AURA */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 z-10" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
+      {/* 2. NAVIGATION (Back Button Added, Sync Button Removed) */}
       <nav className="fixed top-0 left-0 w-full z-[100] px-10 py-8 flex justify-between items-center backdrop-blur-md">
-        <Link href="/" className="text-xl font-bold tracking-[0.4em] uppercase text-white hover:text-[#ff5c00] transition-colors">Ordained</Link>
-        <Link href="/inquiry" className="px-8 py-2 bg-[#ff5c00] text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-white transition-all">
-          Initialize Sync
+        <Link href="/" className="text-[10px] font-mono uppercase tracking-[0.4em] text-gray-500 hover:text-white transition-colors">
+          ← Back_to_Vision_Center
         </Link>
+        <div className="text-[9px] font-mono text-gray-600 uppercase tracking-widest hidden md:block">
+          Sync_Node: <span className="text-[#ff5c00]">Gauteng_ZA</span>
+        </div>
       </nav>
 
       <div className="relative z-20 max-w-5xl mx-auto px-8 pt-48 pb-24 text-left">
+        
+        {/* HEADER (Wording Updated) */}
         <header className="mb-32">
           <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.6em] mb-6">System_Dialogue_Protocols</p>
-          <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-white uppercase leading-none">The <br /> Matrix.</h1>
+          <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-white uppercase leading-none">FAQ.</h1>
         </header>
 
-        <section className="mb-40">
+        {/* FAQ LIST */}
+        <section className="mb-32">
           {faqs.map((faq) => (
             <FAQItem key={faq.id} id={faq.id} question={faq.question} answer={faq.answer} />
           ))}
         </section>
 
+        {/* 3. ASK A QUESTION TERMINAL (New Interaction) */}
+        
+        <section className="p-12 border border-white/10 rounded-[3rem] bg-white/[0.01] mb-20">
+          <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-tighter">Awaiting Further Input?</h3>
+          <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-10 leading-relaxed max-w-md">
+            If your system requirements fall outside these parameters, submit a direct query to the architect.
+          </p>
+          <div className="flex flex-col gap-6">
+            <input 
+              type="text" 
+              placeholder="TYPE YOUR QUESTION HERE..." 
+              className="bg-transparent border-b border-white/10 py-4 text-xl outline-none focus:border-[#ff5c00] transition-colors placeholder:text-white/5 uppercase font-light"
+            />
+            <button className="self-start px-10 py-4 bg-white text-black font-bold text-[10px] uppercase tracking-[0.3em] rounded-xl hover:bg-[#ff5c00] hover:text-white transition-all shadow-xl active:scale-95">
+              Ask a Question
+            </button>
+          </div>
+        </section>
+
         <footer className="mt-20 pt-10 border-t border-white/5 opacity-40 text-[9px] font-mono uppercase tracking-widest text-center">
-          © 2026 Ordained Digitals | Gauteng Node
+          © 2026 Ordained Digitals | Roodepoort Node
         </footer>
       </div>
     </main>

@@ -3,6 +3,14 @@ import React from 'react';
 import Link from 'next/link';
 
 export default function IntelligencePage() {
+  const menuLinks = [
+    { name: 'Resources', href: '/vault' },
+    { name: 'Architecture', href: '/#architecture' },
+    { name: 'Index', href: '/work' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'About Us', href: '/about' },
+  ];
+
   return (
     <main className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e1] font-sans overflow-x-hidden">
       
@@ -24,29 +32,30 @@ export default function IntelligencePage() {
         <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-[#ff5c00] group-hover:text-white transition-colors">
           <span className="text-lg">←</span>
         </div>
-        <span className="text-[10px] font-mono uppercase tracking-[0.3em] pr-4 opacity-0 group-hover:opacity-100 transition-opacity">Return_to_Home</span>
+        <span className="text-[10px] font-mono uppercase tracking-[0.3em] pr-4 opacity-0 group-hover:opacity-100 transition-opacity">Return_to_Dashboard</span>
       </Link>
 
-      {/* 3. TOP NAVIGATION */}
+      {/* 3. TOP NAVIGATION (Buttons Removed, Menu Links Added) */}
       <nav className="fixed top-0 left-0 w-full z-[100] px-10 py-8 flex justify-between items-center backdrop-blur-md bg-black/10 border-b border-white/5">
         <Link href="/" className="text-xl font-bold tracking-[0.4em] uppercase hover:text-[#ff5c00] transition-colors">
           Ordained
         </Link>
-        <button 
-          onClick={() => window.dispatchEvent(new CustomEvent('open-inquiry'))} 
-          className="px-8 py-2.5 bg-[#ff5c00] text-black text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-white transition-all shadow-lg"
-        >
-          Initialize Sync
-        </button>
+        <div className="hidden md:flex items-center gap-6">
+          {menuLinks.slice(0, 3).map((link) => (
+            <Link key={link.name} href={link.href} className="text-[10px] font-mono uppercase tracking-widest text-white/40 hover:text-[#ff5c00] transition-colors">
+              {link.name}
+            </Link>
+          ))}
+        </div>
       </nav>
 
       {/* 4. MAIN CONTENT */}
       <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 pt-48 pb-24 text-left">
         
         {/* HERO SECTION */}
-        <header className="max-w-4xl mb-32 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+        <header className="max-w-4xl mb-32">
           <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.6em] mb-6">Neural_System_Deployment</p>
-          <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-none text-white mb-10">
+          <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-none text-white mb-10 uppercase">
             Neural <br /> Logic.
           </h1>
           <p className="text-gray-400 text-xl font-light italic leading-relaxed max-w-2xl">
@@ -54,7 +63,7 @@ export default function IntelligencePage() {
           </p>
         </header>
 
-        {/* NEW: THE NEURAL FLOW VISUALIZATION */}
+        {/* NEURAL FLOW VISUALIZATION (Logic Preserved) */}
         <section className="mb-40 py-20 border-y border-white/5 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 space-y-6">
@@ -75,15 +84,12 @@ export default function IntelligencePage() {
                </div>
             </div>
 
-            {/* ANIMATED SVG NEURAL FLOW */}
             <div className="lg:col-span-7 relative h-[300px] flex items-center justify-center">
                <svg width="100%" height="100%" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Background Paths */}
                   <path d="M50 150H550" stroke="white" strokeOpacity="0.05" strokeWidth="2" />
                   <path d="M50 150C150 150 200 50 300 50C400 50 450 150 550 150" stroke="white" strokeOpacity="0.05" strokeWidth="2" />
                   <path d="M50 150C150 150 200 250 300 250C400 250 450 150 550 150" stroke="white" strokeOpacity="0.05" strokeWidth="2" />
                   
-                  {/* Animated Data Points (Orange Glow) */}
                   <circle r="4" fill="#ff5c00">
                      <animateMotion dur="3s" repeatCount="indefinite" path="M50 150H550" />
                      <animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite" />
@@ -97,13 +103,11 @@ export default function IntelligencePage() {
                      <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite" />
                   </circle>
 
-                  {/* Nodes */}
                   <circle cx="50" cy="150" r="6" fill="#0d0d0d" stroke="#ff5c00" strokeWidth="2" />
                   <circle cx="300" cy="50" r="6" fill="#0d0d0d" stroke="white" strokeOpacity="0.2" strokeWidth="2" />
                   <circle cx="300" cy="250" r="6" fill="#0d0d0d" stroke="white" strokeOpacity="0.2" strokeWidth="2" />
                   <circle cx="550" cy="150" r="6" fill="#ff5c00" />
                </svg>
-               {/* Glowing Center Label */}
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-2 bg-black border border-[#ff5c00]/20 rounded-full backdrop-blur-xl">
                   <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-white">Neural_Hub</span>
                </div>
@@ -130,15 +134,28 @@ export default function IntelligencePage() {
           </div>
         </div>
 
-        {/* FINAL CTA */}
-        <footer className="text-center py-20 border-t border-white/5">
-           <p className="text-gray-600 font-mono text-[9px] uppercase tracking-[0.5em] mb-8">© 2026 Ordained Digitals | Intelligence Protocol</p>
-           <button 
-             onClick={() => window.dispatchEvent(new CustomEvent('open-inquiry'))}
-             className="text-white hover:text-[#ff5c00] font-bold uppercase text-xs tracking-[0.3em] transition-colors"
-           >
-             Initialize Next Sync ↗
-           </button>
+        {/* FINAL FOOTER MENU (Initialize Button Removed) */}
+        <footer className="mt-40 py-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-start gap-12">
+          <div className="space-y-4">
+            <p className="text-gray-600 font-mono text-[9px] uppercase tracking-[0.5em]">
+              © 2026 Ordained Digitals | Intelligence Protocol
+            </p>
+            <p className="text-gray-400 font-mono text-[9px] uppercase tracking-[0.5em]">
+              Gauteng Node [26.12° S, 27.90° E]
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-4">
+            {menuLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="text-[10px] font-mono text-white/40 hover:text-[#ff5c00] uppercase tracking-[0.3em] transition-all"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </footer>
 
       </div>
