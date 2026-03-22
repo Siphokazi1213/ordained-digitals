@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-// 1. FAQ ITEM COMPONENT (Functionality Preserved)
+// 1. FAQ ITEM COMPONENT
 interface FAQItemProps {
   question: string;
   answer: string;
@@ -48,9 +48,19 @@ export default function FAQMatrix() {
       question: "What is the typical deployment timeline?",
       answer: "A standard 'Sovereign' ecosystem takes 8 to 12 weeks from initial dialogue to full node deployment. This ensures every line of code is optimized for your specific business objectives."
     },
-    { id: "03", question: "Do you offer post-launch maintenance?", answer: "Every architecture includes a 6-month 'Neural Sync' period where we monitor uptime, security protocols, and performance metrics." },
-    { id: "04", question: "Why Python and Google Cloud (GCP)?", answer: "Industry-standard stability. Python allows for complex automation, while GCP provides the global infrastructure needed to maintain a high-fidelity presence." },
-    { id: "05", question: "Can I manage the system myself?", answer: "Absolutely. We build aesthetic administrative dashboards so you can oversee your operations without touching a single line of code." }
+    {
+      id: "03", 
+      question: "What does the SEO Protocol include?", 
+      answer: "We implement a triple-threat SEO strategy: Technical (Core Web Vitals for speed), Structural (Schema markup for Google), and Local (targeting the Gauteng node for regional dominance)." 
+    },
+    {
+      id: "04", 
+      question: "How does Review Management work?", 
+      answer: "We automate your digital testimony. We install protocols that prompt satisfied clients for Google Reviews and manage your reputation to ensure 5-star visibility across all search indices." 
+    },
+    { id: "05", question: "Do you offer post-launch maintenance?", answer: "Every architecture includes a 6-month 'Neural Sync' period where we monitor uptime, security protocols, and performance metrics." },
+    { id: "06", question: "Why Python and Google Cloud (GCP)?", answer: "Industry-standard stability. Python allows for complex automation, while GCP provides the global infrastructure needed to maintain a high-fidelity presence." },
+    { id: "07", question: "Can I manage the system myself?", answer: "Absolutely. We build aesthetic administrative dashboards so you can oversee your operations without touching a single line of code." }
   ];
 
   return (
@@ -62,7 +72,7 @@ export default function FAQMatrix() {
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
-      {/* 2. NAVIGATION (Back Button Added, Sync Button Removed) */}
+      {/* NAVIGATION */}
       <nav className="fixed top-0 left-0 w-full z-[100] px-10 py-8 flex justify-between items-center backdrop-blur-md">
         <Link href="/" className="text-[10px] font-mono uppercase tracking-[0.4em] text-gray-500 hover:text-white transition-colors">
           ← Back_to_Vision_Center
@@ -74,7 +84,7 @@ export default function FAQMatrix() {
 
       <div className="relative z-20 max-w-5xl mx-auto px-8 pt-48 pb-24 text-left">
         
-        {/* HEADER (Wording Updated) */}
+        {/* HEADER */}
         <header className="mb-32">
           <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.6em] mb-6">System_Dialogue_Protocols</p>
           <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-white uppercase leading-none">FAQ.</h1>
@@ -87,8 +97,7 @@ export default function FAQMatrix() {
           ))}
         </section>
 
-        {/* 3. ASK A QUESTION TERMINAL (New Interaction) */}
-        
+        {/* ASK A QUESTION TERMINAL */}
         <section className="p-12 border border-white/10 rounded-[3rem] bg-white/[0.01] mb-20">
           <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-tighter">Awaiting Further Input?</h3>
           <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-10 leading-relaxed max-w-md">

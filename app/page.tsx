@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e1] overflow-x-hidden font-sans selection:bg-[#ff5c00] selection:text-white">
       
-      {/* BACKGROUND ARCHITECTURE (With Parallax) */}
+      {/* BACKGROUND ARCHITECTURE */}
       <motion.div style={{ y }} className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-transparent to-transparent z-10" />
         <img 
@@ -64,10 +64,10 @@ export default function Home() {
         />
       </motion.div>
 
-      {/* AI STATUS BUBBLE (Functional CTA) */}
+      {/* AI STATUS BUBBLE */}
       <button 
         onClick={handleInquiryClick}
-        className="fixed bottom-8 right-8 z-[120] flex items-center gap-4 bg-white/5 backdrop-blur-3xl border border-white/10 p-2 pl-6 rounded-full shadow-2xl hover:bg-white/10 transition-all group animate-in fade-in slide-in-from-right-8 duration-1000 hidden md:flex active:scale-95"
+        className="fixed bottom-8 right-8 z-[120] flex items-center gap-4 bg-white/5 backdrop-blur-3xl border border-white/10 p-2 pl-6 rounded-full shadow-2xl hover:bg-white/10 transition-all group hidden md:flex active:scale-95"
       >
         <div className="flex flex-col items-end">
           <span className="text-[8px] font-mono text-gray-500 uppercase tracking-widest">Mastermind_Sync</span>
@@ -78,7 +78,7 @@ export default function Home() {
         </div>
       </button>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-16 pt-48 md:pt-64 pb-12">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-16 pt-48 md:pt-64 pb-12 text-left">
         
         {/* HERO SECTION */}
         <motion.header 
@@ -86,7 +86,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="relative mb-40 flex flex-col items-start max-w-4xl text-left"
+          className="relative mb-40 flex flex-col items-start max-w-4xl"
         >
           <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-6">Engineering Premium Identities</p>
           <h1 className="text-5xl md:text-[8rem] font-bold leading-[0.9] md:leading-[0.85] tracking-tighter mb-10 text-white">
@@ -119,7 +119,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.8 }}
               viewport={{ once: true }}
-              className="flex flex-col items-start space-y-2 text-left"
+              className="flex flex-col items-start space-y-2"
             >
               <span className="text-[#ff5c00] font-mono text-[9px] uppercase tracking-widest">{stat.label}</span>
               <span className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
@@ -130,7 +130,7 @@ export default function Home() {
         </section>
 
         {/* NEURAL PREVIEW */}
-        <section className="w-full mb-40 pt-24 border-t border-white/5">
+        <section className="w-full mb-20 pt-24 border-t border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <motion.div 
               initial={{ scale: 0.8, opacity: 0 }}
@@ -152,73 +152,100 @@ export default function Home() {
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
-              className="space-y-8 order-1 lg:order-2 text-left"
+              className="space-y-8 order-1 lg:order-2"
             >
               <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em]">Neural_Automation_Protocol</p>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-tight">Intelligence <br /> as an Asset.</h2>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-tight uppercase">Intelligence <br /> as an Asset.</h2>
               <p className="text-gray-400 text-lg leading-relaxed font-light italic">Automating high-level decision making and user interactions to ensure your business never sleeps.</p>
             </motion.div>
           </div>
         </section>
 
+        {/* --- NEW SECTION: GROWTH PROTOCOLS (SEO / REVIEWS / SHEETS) --- */}
+        <section className="w-full mb-40 pt-24 border-t border-white/5">
+          <div className="mb-20">
+            <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Scale_Your_Kingdom</p>
+            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">The Growth Suite.</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { 
+                title: "Data Autonomy", 
+                id: "01",
+                desc: "Engineering aesthetic Google Sheet ecosystems that manage your business logic with absolute order." 
+              },
+              { 
+                title: "Search Dominance", 
+                id: "02",
+                desc: "Technical SEO protocols designed to anchor your brand at the summit of local and global search indices." 
+              },
+              { 
+                title: "Digital Testimony", 
+                id: "03",
+                desc: "Automated reputation systems that multiply your social proof and manage client feedback with excellence." 
+              }
+            ].map((service, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="bg-white/[0.02] border border-white/5 p-10 rounded-[2.5rem] flex flex-col justify-between group hover:border-[#ff5c00]/30 transition-all duration-500"
+              >
+                <div className="space-y-6">
+                  <span className="text-[#ff5c00] font-mono text-xs opacity-50">{service.id}</span>
+                  <h3 className="text-2xl font-bold text-white uppercase tracking-tighter">{service.title}</h3>
+                  <p className="text-gray-500 text-sm font-light leading-relaxed italic">{service.desc}</p>
+                </div>
+                <div className="mt-8 pt-8 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-[10px] font-mono text-white tracking-widest uppercase">Protocol_Active</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* SIGNATURE WORK */}
-        <section className="w-full mb-40 text-left">
+        <section className="w-full mb-40">
           <div className="flex justify-between items-end mb-16">
             <div className="space-y-4">
               <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em]">Case_Studies</p>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">Signature Work</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white uppercase">Signature Work</h2>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div 
               whileHover={{ y: -15 }}
-              transition={{ type: "spring", stiffness: 300 }}
               className="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-[#1a1a1a] border border-white/5 hover:!border-[#ff5c00]/30 transition-all duration-700"
             >
               <img src="https://images.unsplash.com/photo-1544161515-4ae6ce6db874?q=80&w=2070" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all scale-105 group-hover:scale-110" alt="Aura Wellness" />
               <div className="absolute bottom-10 left-10 z-20">
                   <p className="text-[#ff5c00] font-mono text-[8px] uppercase tracking-[0.4em] mb-3">Luxe_Wellness_Sanctuary</p>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-none">Aura Wellness</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-none uppercase">Aura Wellness</h3>
                   <Link href="/work/aura-wellness" className="text-[8px] font-mono tracking-widest uppercase text-white/50 group-hover:text-white transition-all">View Concept →</Link>
               </div>
             </motion.div>
-            <motion.div whileHover={{ y: -15 }} className="relative aspect-[4/5] rounded-[2.5rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 opacity-40 hover:opacity-100 transition-all group">
-               <h3 className="text-xl font-bold text-white mb-2 tracking-tight">Future Legacy</h3>
+            <div className="relative aspect-[4/5] rounded-[2.5rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 opacity-40">
+               <h3 className="text-xl font-bold text-white mb-2 tracking-tight uppercase">Future Legacy</h3>
                <p className="text-[9px] text-[#ff5c00] font-mono uppercase tracking-widest">In Design Phase</p>
-            </motion.div>
-            <motion.div whileHover={{ y: -15 }} className="relative aspect-[4/5] rounded-[2.5rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 opacity-40 hover:opacity-100 transition-all group">
-               <h3 className="text-xl font-bold text-white mb-2 tracking-tight">System Identity</h3>
+            </div>
+            <div className="relative aspect-[4/5] rounded-[2.5rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 opacity-40">
+               <h3 className="text-xl font-bold text-white mb-2 tracking-tight uppercase">System Identity</h3>
                <p className="text-[9px] text-[#ff5c00] font-mono uppercase tracking-widest">Queued for Q3</p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* STRATEGIC INVESTMENT - TIER INFO RESTORED */}
-        <section id="investment" className="w-full mb-40 pt-24 border-t border-white/5 text-left">
+        {/* STRATEGIC INVESTMENT */}
+        <section id="investment" className="w-full mb-40 pt-24 border-t border-white/5">
           <div className="mb-20">
             <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Capital_Deployment</p>
-            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight">Strategic <br /> Investment</h2>
+            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">Strategic <br /> Investment</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { 
-                tier: "Essential", 
-                price: "R10k+", 
-                desc: "Immediate presence and premium portfolios.",
-                details: "Bespoke UI design, SEO indexing, and sub-300ms speed optimization." 
-              },
-              { 
-                tier: "Sovereign", 
-                price: "R25k+", 
-                desc: "Full scale ecosystems with payment nodes.",
-                details: "Google Sheet databases, custom admin logic, and integrated payment gateways."
-              },
-              { 
-                tier: "Neural", 
-                price: "R50k+", 
-                desc: "AI integrated systems and automated flows.",
-                details: "Python-driven automation, LLM integration, and autonomous data processing."
-              }
+              { tier: "Essential", price: "R5k+", desc: "Immediate presence and premium portfolios.", details: "Bespoke UI design, SEO indexing, and sub-300ms speed optimization." },
+              { tier: "Sovereign", price: "R10k+", desc: "Full scale ecosystems with payment nodes.", details: "Google Sheet databases, custom admin logic, and integrated payment gateways." },
+              { tier: "Neural", price: "R15k+", desc: "AI integrated systems and automated flows.", details: "Python-driven automation, LLM integration, and autonomous data processing." }
             ].map((pkg, i) => (
               <motion.div 
                 key={i} 
@@ -240,18 +267,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 9. THE ARCHITECTURE ROADMAP - RESTORED */}
-        <section id="architecture" className="w-full mb-40 pt-24 border-t border-white/5 text-left scroll-mt-32">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="mb-20"
-          >
+        {/* ARCHITECTURE ROADMAP */}
+        <section id="architecture" className="w-full mb-40 pt-24 border-t border-white/5">
+          <div className="mb-20">
             <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Execution_Phase</p>
-            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight">The Path to <br /> Digital Sovereignty</h2>
-          </motion.div>
+            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">The Path to <br /> Digital Sovereignty</h2>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
             <div className="hidden lg:block absolute top-6 left-0 w-full h-px bg-gradient-to-r from-[#ff5c00]/50 via-white/10 to-transparent z-0" />
@@ -261,31 +282,22 @@ export default function Home() {
               { step: '03', title: 'Engineering', desc: 'Developing the sub-300ms ecosystem with absolute stewardship.' },
               { step: '04', title: 'Sovereignty', desc: 'Final deployment. You own the code, the data, and the future.' }
             ].map((item, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.2, duration: 0.5 }}
-                viewport={{ once: true }}
-                className="relative z-10 space-y-4 group"
-              >
-                <div className="w-12 h-12 bg-[#0d0d0d] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-[#ff5c00] transition-colors duration-500 shadow-[0_0_15px_rgba(255,92,0,0)] group-hover:shadow-[0_0_20px_rgba(255,92,0,0.2)]">
+              <div key={i} className="relative z-10 space-y-4 group">
+                <div className="w-12 h-12 bg-[#0d0d0d] border border-white/10 rounded-full flex items-center justify-center mb-4 group-hover:border-[#ff5c00] transition-colors duration-500">
                   <span className="text-[#ff5c00] font-mono text-xs font-bold">{item.step}</span>
                 </div>
                 <h4 className="text-xl font-bold text-white uppercase tracking-tight group-hover:text-[#ff5c00] transition-colors">{item.title}</h4>
                 <p className="text-gray-500 text-sm font-light leading-relaxed italic">{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* 10. RE-ENGINEERED FOOTER - GAUTENG COORDINATES UPDATED */}
-        <footer className="w-full pt-20 border-t border-white/5 opacity-80 text-left">
+        {/* FOOTER */}
+        <footer className="w-full pt-20 border-t border-white/5 opacity-80">
           <div className="flex flex-col md:flex-row justify-between gap-12 mb-20">
             <div className="space-y-10">
                <div className="text-4xl font-bold tracking-[0.4em] uppercase text-white">Ordained</div>
-               
-               {/* CONTACT NODE */}
                <div className="space-y-6 font-mono text-[9px] tracking-[0.3em] uppercase text-gray-500">
                   <div className="flex items-center gap-4">
                      <div className="relative w-2 h-2">
@@ -314,7 +326,7 @@ export default function Home() {
                   <Link href="/about" className="block hover:text-[#ff5c00]">About Us</Link>
                </div>
                <div className="space-y-4">
-                  <h4 className="text-white font-bold mb-4">Connect / Legal</h4>
+                  <h4 className="text-white font-bold mb-4">Connect</h4>
                   <a href="https://instagram.com" className="block hover:text-[#ff5c00]">Instagram</a>
                   <Link href="/privacy" className="block hover:text-[#ff5c00]">Privacy Policy</Link>
                </div>
