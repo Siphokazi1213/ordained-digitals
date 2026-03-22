@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
+  
   // Protocol: Hide on high-focus work pages
   if (pathname === '/work/aura-wellness') return null;
 

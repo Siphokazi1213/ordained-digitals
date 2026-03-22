@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar"; // THE GLOBAL HUB
-import CustomCursor from "../components/CustomCursor";
-import InquiryModal from "../components/InquiryModal";
+
+// THE ALIAS HANDSHAKE: Using @/ ensures the build engine finds your components
+import Navbar from "@/components/Navbar"; 
+import CustomCursor from "@/components/CustomCursor";
+import InquiryModal from "@/components/InquiryModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,10 +50,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-[#0d0d0d]`} suppressHydrationWarning>
-        {/* 1. INTERACTIVE LAYERS */}
+      <body 
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-[#0d0d0d]`} 
+        suppressHydrationWarning
+      >
+        {/* 1. INTERACTIVE LAYERS (GLOBAL) */}
         <CustomCursor />
-        <Navbar /> {/* THIS IS THE FIX: IT NOW RENDERS GLOBALLY */}
+        <Navbar /> 
         <InquiryModal />
 
         {/* 2. CORE SYSTEM CONTENT */}
