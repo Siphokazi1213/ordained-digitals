@@ -143,7 +143,7 @@ export default function Home() {
               <div className="relative z-10 w-full h-full border border-white/5 rounded-full flex items-center justify-center backdrop-blur-3xl bg-white/[0.01]">
                  <div className="absolute w-3/4 h-3/4 border border-[#ff5c00]/10 rounded-full animate-[spin_20s_linear_infinite]" />
                  <div className="w-12 h-12 bg-[#ff5c00] rounded-full shadow-[0_0_50px_rgba(255,92,0,0.4)] flex items-center justify-center">
-                    <span className="text-black text-[10px] font-black tracking-tighter">AI</span>
+                    <span className="text-black text-[10px] font-black tracking-tighter">AI Powered</span>
                  </div>
               </div>
             </motion.div>
@@ -154,9 +154,9 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8 order-1 lg:order-2"
             >
-              <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em]">Neural_Automation_Protocol</p>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-tight uppercase">Intelligence <br /> as an Asset.</h2>
-              <p className="text-gray-400 text-lg leading-relaxed font-light italic">Automating high-level decision making and user interactions to ensure your business never sleeps.</p>
+              <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em]">Smart Business Automation</p>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-tight uppercase">Turn Operations into <br /> an automated Asset.</h2>
+              <p className="text-gray-400 text-lg leading-relaxed font-light italic">We build smart websites and automated workflows that handle leads, bookings, and customer enquiries 24/7.</p>
             </motion.div>
           </div>
         </section>
@@ -164,26 +164,26 @@ export default function Home() {
         {/* --- NEW SECTION: GROWTH PROTOCOLS (SEO / REVIEWS / SHEETS) --- */}
         <section className="w-full mb-40 pt-24 border-t border-white/5">
           <div className="mb-20">
-            <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Scale_Your_Kingdom</p>
-            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">The Growth Suite.</h2>
+            <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Scale Your Business</p>
+            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">Our Core Services</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { 
-                title: "Data Autonomy", 
+                title: "Custom Admin & Spreadsheet Systems", 
                 id: "01",
-                desc: "Engineering aesthetic Google Sheet ecosystems that manage your business logic with absolute order." 
+                desc: "Custom Google Sheets, live dashboards, and automated trackers designed to organise your business data, inventory, and operations effortlesly." 
               },
               { 
-                title: "Search Dominance", 
+                title: "Google Search & SEO Optimization", 
                 id: "02",
-                desc: "Technical SEO protocols designed to anchor your brand at the summit of local and global search indices." 
+                desc: "Local & Global SEO strategies that rank your business high on Google, increase visibility, and drive organic traffic to your website." 
               },
               { 
-                title: "Digital Testimony", 
+                title: "Automated Review Systems.", 
                 id: "03",
-                desc: "Automated reputation systems that multiply your social proof and manage client feedback with excellence." 
+                desc: "Automated tools to collect customer reviews, highlight testimonials, and boost your online reputation across multiple platforms." 
               }
             ].map((service, i) => (
               <motion.div 
@@ -197,7 +197,7 @@ export default function Home() {
                   <p className="text-gray-500 text-sm font-light leading-relaxed italic">{service.desc}</p>
                 </div>
                 <div className="mt-8 pt-8 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-[10px] font-mono text-white tracking-widest uppercase">Protocol_Active</span>
+                  <span className="text-[10px] font-mono text-white tracking-widest uppercase">Available Now</span>
                 </div>
               </motion.div>
             ))}
@@ -239,13 +239,13 @@ export default function Home() {
         <section id="investment" className="w-full mb-40 pt-24 border-t border-white/5">
           <div className="mb-20">
             <p className="text-[#ff5c00] font-mono text-[10px] uppercase tracking-[0.5em] mb-4">Capital_Deployment</p>
-            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">Strategic <br /> Investment</h2>
+            <h2 className="text-4xl md:text-7xl font-bold text-white tracking-tighter leading-tight uppercase">Service Packages & <br /> Pricing</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { tier: "Essential", price: "R5k+", desc: "Immediate presence and premium portfolios.", details: "Bespoke UI design, SEO indexing, and sub-300ms speed optimization." },
-              { tier: "Sovereign", price: "R10k+", desc: "Full scale ecosystems with payment nodes.", details: "Google Sheet databases, custom admin logic, and integrated payment gateways." },
-              { tier: "Neural", price: "R15k+", desc: "AI integrated systems and automated flows.", details: "Python-driven automation, LLM integration, and autonomous data processing." }
+              { tier: "Starter Website", price: "R1 500 - R2 500", desc: "Professional 1-Page Website.", details: "Includes a custom 1-page high-speed design, direct WhatsApp booking button, local Google search and maps setup, mobile-responsive layout, and fast loading speeds with free SSL security." },
+              { tier: "Growth & Payments", price: "R4 500 - R6 500", desc: "Full Multi-Page & E-Commerce Website.", details: "Includes a multi-page custom web application, online payment setup with Yoco, PayFast, or EFT, custom Google Sheets lead and order tracking database, advanced SEO optimization, and automated client inquiry forms" },
+              { tier: "Pro Automation System", price: "R9 500 - R12 500", desc: "Custom AI & Automated Business Workflows.", details: "Includes full custom web portal architecture, integrated AI assistants, automated Python and Google Sheet workflow engines, client review systems, and priority system support." }
             ].map((pkg, i) => (
               <motion.div 
                 key={i} 
